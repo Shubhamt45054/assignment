@@ -8,7 +8,11 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: ['http://localhost:5173',"https://feedback-form-xyz.netlify.app/"]
+  origin: [
+    'http://localhost:5173',
+    'https://feedback-form-xyz.netlify.app',
+    'https://obliged-jeanie-vikers-of-q-fb1222e7.koyeb.app'
+  ],
 }));
 
 // json data
