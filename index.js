@@ -2,8 +2,14 @@ import express from "express";
 import connectDB from "./src/db/index.js";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import cors from "cors";
 
-const app=express();
+const app = express();
+
+// CORS configuration
+app.use(cors({
+  origin: ['http://localhost:5173']
+}));
 
 // json data
 app.use(express.json());

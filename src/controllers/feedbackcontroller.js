@@ -10,6 +10,12 @@ export const createFeedback = async (req, res) => {
         return res.status(400).json({ message: "All fields are required" });
     }
 
+    const user = await Feedback.findOne({email:email});
+
+    if(user){
+        return res.status(400).json({message:"email already exists"});
+    }
+
     const feedback = await Feedback.create({ fullname, email, message });
     res
     .status(201)
