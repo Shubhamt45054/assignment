@@ -1,12 +1,19 @@
 import express from "express";
 import connectDB from "./src/db/index.js";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
 
 const app=express();
 
+// json data
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+import feedbackRouter from "./src/routes/feedbackroutes.js"
+app.use("/api/feedback", feedbackRouter);
 
 dotenv.config();
+
 connectDB()
 .then(()=>{  
     app.listen(process.env.PORT || 8000,()=>{
