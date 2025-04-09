@@ -4,33 +4,33 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 
+dotenv.config();
+
 const app = express();
 
-// CORS configuration
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://feedback-form-xyz.netlify.app',
-    'https://obliged-jeanie-vikers-of-q-fb1222e7.koyeb.app'
-  ],
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// json data
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Routes
 import feedbackRouter from "./src/routes/feedbackroutes.js"
 app.use("/api/feedback", feedbackRouter);
 
-dotenv.config();
-
 connectDB()
-.then(()=>{  
-    app.listen(process.env.PORT || 8000,()=>{
-        console.log(`Server is running on port ${process.env.PORT}`);
-    })
-})
-.catch((err)=>{
-    console.log(err);
-})
+  .then(() => {
+    const PORT = process.env.PORT || 8000;
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Database connection failed:', err);
+    process.exit(1);
+  });
 
